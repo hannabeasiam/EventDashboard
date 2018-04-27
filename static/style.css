@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/*div clas container, make layout more suitable*/
+.container {
+  padding-left: 1em;
+  padding-right: 1em;
+  font-weight: 500;
+}
+body {
+	line-height: 1.5;
+  color: #3a3a3a;
+  height: 100vh;
+  max-height: 100vh;
+  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.wrap {
+  min-height: calc(100vh - 88px); /*viewport height 100% - footer height 88px*/
+}
+.main-header {
+  background-color: #2e3438;
+
+  color: rgba(191, 203, 206, 0.788);
+}
+
+/*nav bar*/
+.name {
+  font-size: 1.25em;
+}
+.name, .main-nav li{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.name a,
+.main-nav a {
+  padding: 10px 15px;
+  display: block;
+  background-color:  rgba(191, 203, 206, 0.788);
+  border-radius: 2em;
+  text-decoration:  none;
+  font-weight:      bold;
+  color:  #2e3438;
+  transition-duration: .5s; 
+}
+a:hover {
+  /* Applies to links under the pointer */
+  font-weight:      bold;
+  background-color:  #fff;
+  color:           #2e3438;
+
+  } 
+a:active  {
+  /* Applies to activated links */
+  font-weight: bold;
+  background-color: rgba(68, 218, 101, 0.788);
+  color: white;
+  }
+/*=======================================
+ aside, left side menu
+=========================================*/ 
+aside {
+  float: left;
+  max-width: 250px;
+  margin: 2em;
+  padding: 1em;
+}
+
+aside ul {
+  list-style-type: none;
+  padding: 0;
+}
+ 
+aside ul a {
+  text-decoration: none;
+  font-weight: 300;
+  color: rgba(24, 104, 224, 0.788);
+}
+.number {
+  font-weight: 300;
+  color: rgba(24, 104, 224, 0.788);
+}
+/*=======================================
+  main 
+=========================================*/ 
+h2 {
+  color: rgba(68, 218, 101, 0.788);
+  margin: 1em 0;
+}
+a {
+  text-decoration: none;
+}
+
+
+.main-footer {
+  text-align: center;
+	padding: 2em 0;
+  background: #d9e4ea;
+  font-weight:      bold;
+  color: rgba(107, 133, 139, 0.788);
+}
+/*=======================================
+  form page
+=========================================*/
+.error {
+  color: rgb(236, 114, 114);
+  margin-left: 3em;
+}
+.coursePage{
+  background-color: rgba(216, 187, 171, 0.788);
+  
+}
+.asign3 {
+  background-color: rgba(71, 90, 105, 0.788);
+}
+form {
+  margin: 0;
+}
+/* test table guid line
+table, th, td {
+  border: 0.5px;
+  border-style: dotted;
+}*/
+th {
+  margin: 2em;
+  padding-right: 2em;
+  padding-bottom: 1em;
+}
+/* centerlize the button under table */
+th.center {
+  padding-right: 0;
+}
+.center {
+  text-align: center;
+}
+td {
+  padding-bottom: 0.5em;
+}
+input {
+  border: solid 2px;
+  color: rgb(70, 86, 88);
+  padding: 8px 16px;
+  text-decoration-color: #3a3a3a;
+  margin: 1em;
+  cursor: pointer;
+}
+input[type=submit] {
+  background-color: rgb(85, 198, 202);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+/*
+* Define consistent border, margin, and padding.
+*/
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+/*=======================================
+  button styles
+  =====================================*/
+a:hover.button {
+  font-weight:      bold;
+  background-color: rgba(68, 218, 101, 0.788);
+  color: white;
+} 
+
+.button {
+  display: inline-block;
+  border-radius: 5px;
+  padding: .5em;
+  text-decoration: none;
+  background-color:  rgba(191, 203, 206, 0.788);
+  font-weight:      bold;
+  color:  #2e3438;
+}
+
+.addButton {
+  display: inline-block;
+  border-radius: 10em;
+  padding: .5em;
+  text-decoration: none;
+  background-color:  rgba(128, 223, 247, 0.788);
+  font-weight: 700;
+  color:  #135480;
+}
+
+/*=======================================
+  Media Queries, mobile version
+=========================================*/
+/*width 769px or wider, mobile first approach, so only big web size adjust under media*/
+@media (min-width: 769px) {
+  .wrap {
+    min-height: calc(100vh - 88px); /*viewport height 100% - footer height 88px*/
+  }
+  .container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .name,
+  .main-nav,
+  .main-nav li {
+    display: inline-block;/* remove break between list item, display one line do not create line breaks*/
+  }
+  .name {
+    width: 240px;
+    margin-right: 100px; /*push margin to make spece with button menu*/
+  }
+  .main-nav li {
+    margin-right: 12px; /*-4px, negantive px will remove block space between list item 4px with 16px text*/
+  }
+  
+  /*primary and secondary div block, only in web screen*/
+  .col {
+    display: inline-block;
+    width: 50%;
+
+    margin-right: -4px;  /*negative margin pull the columns towards each other, remove space*/
+    vertical-align: top;
+    /*margin-top: 20px;*/
+    padding-top: 20px;
+    padding-left: 1em;
+    padding-right: 1em;
+
+  }
+}
