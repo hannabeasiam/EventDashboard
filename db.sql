@@ -1,6 +1,7 @@
-DROP DATABASE IF EXISTS golf;
+
 CREATE DATABASE IF NOT EXISTS golf;
 USE golf;
+
 
 CREATE TABLE event_types (
   event_type_id     INT          PRIMARY KEY   AUTO_INCREMENT,
