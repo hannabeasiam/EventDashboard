@@ -26,15 +26,11 @@ Study PHP CRUD, DB connection.
 
 - event.php                # customize button from eventType page call this. Able to Update, Delete event type, also display eventItem here.
 
-- eventItem.php            # load all existing events matched with Event Type
+- addEventItem.php         # form to create each event under event type
+
+- eventItem.php            # 
+
 ```
-    .
-    ├──
-    ├── test                    # Test files (alternatively `spec` or `tests`)
-    │   ├── benchmarks          # Load and stress tests
-    │   ├── integration         # End-to-end, integration tests (alternatively `e2e`)
-    │   └── unit                # Unit tests
-    └── ...
 
 ## App's function
 
@@ -48,9 +44,9 @@ Study PHP CRUD, DB connection.
     - [x] Display Input Box with Selected Event Type Value
     - Save Change (Update) | Delete | Nevermind (Go back to Event Type parents Page)
       - Delete button will drop all Event Type table.  
-    - Below, list all generated Events with Add Event button
-    - Each Event prompt for Date & Location, EventTypeID will be inherited, display 
-    - Each generated Event will have Upate | Delete event option
+    - [x] Below, list all generated Events with Add Event button
+    - [x] Each Event prompt for Date & Location, EventTypeID will be inherited, display 
+    - [x] Each generated Event will have Upate | Delete event option
     - If clicked nav right side, show detail event page in current page.
 
 ### Event Attendees
