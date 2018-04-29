@@ -1,7 +1,7 @@
 <?php
 //connect db, passing queary as parameter must initialize query before call this function
 function get_table($query) {
-  include_once("dbconnect.php");
+  include("dbconnect.php");
   try {
     $statement = $db->prepare($query);
     $statement->execute();
@@ -16,7 +16,7 @@ function get_table($query) {
 
 // instead of fetch all, returns an array for the next row in the result set
 function get_row($query) {
-  include_once("dbconnect.php");
+  include("dbconnect.php");
   try {
     $statement = $db->prepare($query);
     $statement->execute();
@@ -36,7 +36,7 @@ function get_row($query) {
  */
 
 function change_table($query, $parent) {
-  include_once("dbconnect.php");
+  include("dbconnect.php");
   if (empty($errorMessage)) { 
     try {
       $statement = $db->prepare($query);
@@ -53,7 +53,7 @@ function change_table($query, $parent) {
   }
 }
 function display_db_error($errorMessage) {
-  include_once("dbconnect.php"); /********** should I add this here? **********/
+  include("dbconnect.php"); /********** should I add this here? **********/
   echo '<aside>';
   echo '<ul>';
   echo "<li>$errorMessage</li>";
@@ -61,7 +61,7 @@ function display_db_error($errorMessage) {
 }
 
 function db_close() {
-  include_once("dbconnect.php"); /********** should I add this here? **********/
+  include("dbconnect.php"); /********** should I add this here? **********/
   $db = NULL;
 }
 ?>

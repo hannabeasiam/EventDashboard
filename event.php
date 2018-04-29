@@ -1,5 +1,5 @@
 <?php
-  include_once("inc/functions.php");
+  include("inc/functions.php");
   $title = 'Event';
   $parent = 'Location: eventType.php';
   // I can set title and parent with post here
@@ -9,12 +9,12 @@
   if ($_SERVER["REQUEST_METHOD"] == "GET") { 
     $request = trim(filter_input(INPUT_GET, 'event_type_id'));
     $query = "SELECT * FROM event_types WHERE event_type_id=$request;";
-    echo($query);
+    // echo($query);
     
     $event_types = get_row("$query");  // fetch data
-    echo'<pre>';
-    print_r($event_types);
-    echo'</pre>';
+    // echo'<pre>';
+    // print_r($event_types);
+    // echo'</pre>';
     
   }
   
@@ -57,9 +57,10 @@
     display_db_error($errorMessage);
   } else {
 ?>
-<div class="container">
+<div class="container col">
+  <h1>Each Event Type page with List of Events</h1>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="event" method="post">
-  <!--This line Should Be deleted later--> <p>Event Type ID<?php echo $event_types['event_type_id']; ?></p>
+  <!--This line Should Be deleted later--> <p>Event Type ID : <?php echo $event_types['event_type_id']; ?></p>
     <input type="hidden" name="et_id" id="et_id" value="<?php echo $event_types['event_type_id']; ?>" />
     <lable>Event Type Name</label>
     <input type="text" name="et_name" id="et_name" value="<?php echo $event_types['event_type_name']; ?>"/>
@@ -73,8 +74,46 @@
     <input type="submit" name="delete" value="delete">
   </form>
 </div>
-<?php 
+	<!--main contents-->
+	<div class="container col">
+    <table>
+      <caption>Events</caption>
+      <thead>
+        <tr>
+          <th>event_type_id</th>
+          <th>event_id</th>
+          <th>event_date</th>
+          <th>event_location</th>
+          <th class="center"><a class="addButton" href="addEventItem.php?event_type_id=<?php echo $event_types['event_type_id']; ?>">+ Event</a></th>
+          <!--event type id from either events, or event type -->
+        </tr>
+      </thead>
+      <tbody>
+      <?php
   }
+
+      $query = 'SELECT * FROM events WHERE event_type_id='.$event_types['event_type_id'];
+      $events = get_table($query);
+       //echo'<pre>';
+       //print_r($events);
+       //echo'</pre>';
+      foreach ($events as $event) {
+        echo '<tr>';
+        echo '<td>' . $event['event_type_id'] . '</td>';
+        echo '<td>' . $event['event_id'] . '</td>';
+        echo '<td>' . $event['event_date'] . '</td>';
+        echo '<td>' . $event['event_location'] . '</td>';
+        echo '<td>' . '<a href="eventItem.php?event_id='. $event['event_id'] .'">Edit</a> | <a href="eventItem.php?event_id=' . $event['event_id'] . '">Delete</a></td>';
+        echo '</tr>';
+      }
+    
+      ?>
+      </tbody>
+    </table>
+  </div>
+<?php 
+
+  
   include_once("inc/footer.php"); 
-  db_close();
+  // include("dbclose.php"); 
 ?>

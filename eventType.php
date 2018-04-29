@@ -3,11 +3,11 @@
   $query = 'SELECT * FROM event_types ORDER BY event_type_name';
   $event_types = get_table($query);
   // Define title & parents path
-  if (isset($_GET['ET'])) { // EventType page
-    if($_GET['ET'] == 'AddEventType') {
+  if (isset($_GET['eventType'])) { // EventType page
+    if($_GET['eventType'] == 'addEventType') {
       $title = 'Add Event Type';
       $parent = 'eventType.php';
-    } else if($_GET['ET'] == 'Customize') {
+    } else if($_GET['eventType'] == 'Customize') {
       $title = 'Customize Event Type';
       $parent = 'eventType.php';
     } else {
@@ -19,7 +19,7 @@
 ?>
 	<!--main contents-->
 	<div class="container">
-    <h1>Event Type</h1>
+    <h1>Event Type First Page</h1>
     <!--add lookup page here button click triger page move to search.php-->
 
     <!--current invoice list here call display dashboard part-->
@@ -34,7 +34,7 @@
           <th>Event Type ID</th>
           <th>Event Name</th>
           <th>Description</th>
-          <th class="center"><a class="addButton" href="AddEventType.php">+ Event Type</a></th>
+          <th class="center"><a class="addButton" href="addEventType.php">+ Event Type</a></th>
         </tr>
       </thead>
       <tbody>
@@ -58,5 +58,5 @@
 <!--include footer-->
 <?php 
   include_once("inc/footer.php"); 
-  db_close();
+  include("dbclose.php"); 
 ?>
