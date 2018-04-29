@@ -1,13 +1,9 @@
 <?php
   require("inc/functions.php");
-  //$query = 'SELECT * FROM event_types, events WHERE event_id='.$_GET['event_id'];
-  //$events = get_table($query);
+ 
   include_once("inc/header.php");
-$request = trim(filter_input(INPUT_GET, 'event_id'));
-    $query = 'SELECT * FROM event_types, events WHERE event_id='.$request;
-    // echo($query);
     
-    $events = get_row("$query"); 
+   // $events = get_row("$query"); 
   if ($_SERVER["REQUEST_METHOD"] == "GET") { 
     $request = trim(filter_input(INPUT_GET, 'event_id'));
     $query = 'SELECT * FROM event_types, events WHERE event_id='.$request;
@@ -52,7 +48,7 @@ $request = trim(filter_input(INPUT_GET, 'event_id'));
     }
     /***********for Delete, user input change does not effect ? better way? *********************************************/
     if (isset($_POST['delete'])) {
-      $parent = "Location: eventType.php"
+      $parent = "Location: eventType.php";
       $query = "DELETE FROM events
                 WHERE event_id = '$event_id'";
   
