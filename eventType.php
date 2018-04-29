@@ -58,5 +58,5 @@
 <!--include footer-->
 <?php 
   include_once("inc/footer.php"); 
-  db_close();
+  include("dbclose.php"); 
 ?>

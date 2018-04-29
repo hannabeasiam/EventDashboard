@@ -12,7 +12,8 @@ CREATE TABLE events (
   event_id          INT              PRIMARY KEY AUTO_INCREMENT,
   event_date        DATE             NOT NULL,
   event_location    VARCHAR(30)      NOT NULL,
-  event_type_id     INT
+  event_type_id     INT,
+  FOREIGN KEY (event_type_id) REFERENCE event_types(event_type_id)
 );
 
 CREATE TABLE event_attendees (

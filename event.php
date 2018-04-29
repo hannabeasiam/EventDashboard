@@ -74,16 +74,6 @@
     <input type="submit" name="delete" value="delete">
   </form>
 </div>
-<?php
-
-    $query = 'SELECT * FROM events WHERE event_type_id='.$event_types['event_type_id'];
-    $events = get_table($query);
-    // echo'<pre>';
-    // print_r($events);
-    // echo'</pre>';
-
-?>
-
 	<!--main contents-->
 	<div class="container col">
     <table>
@@ -100,22 +90,30 @@
       </thead>
       <tbody>
       <?php
-        foreach ($events as $event) {
-          echo '<tr>';
-          echo '<td>' . $event['event_type_id'] . '</td>';
-          echo '<td>' . $event['event_id'] . '</td>';
-          echo '<td>' . $event['event_date'] . '</td>';
-          echo '<td>' . $event['event_location'] . '</td>';
-          echo '<td>' . '<a href="eventItem.php?event_id=' . $event['event_id'] . '">Edit</a> | <a href="eventItem.php?event_id=' . $event['event_id'] . '">Delete</a></td>';
-          echo '</tr>';
-        }
+  }
+
+      $query = 'SELECT * FROM events WHERE event_type_id='.$event_types['event_type_id'];
+      $events = get_table($query);
+       //echo'<pre>';
+       //print_r($events);
+       //echo'</pre>';
+      foreach ($events as $event) {
+        echo '<tr>';
+        echo '<td>' . $event['event_type_id'] . '</td>';
+        echo '<td>' . $event['event_id'] . '</td>';
+        echo '<td>' . $event['event_date'] . '</td>';
+        echo '<td>' . $event['event_location'] . '</td>';
+        echo '<td>' . '<a href="eventItem.php?event_id='. $event['event_id'] .'">Edit</a> | <a href="eventItem.php?event_id=' . $event['event_id'] . '">Delete</a></td>';
+        echo '</tr>';
+      }
+    
       ?>
       </tbody>
     </table>
   </div>
 <?php 
 
-  }
+  
   include_once("inc/footer.php"); 
-  include("dbclose.php"); 
+  // include("dbclose.php"); 
 ?>
