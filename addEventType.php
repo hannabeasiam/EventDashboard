@@ -18,15 +18,23 @@
       $descriptionError = 'Event Type Description is Required Field';
     }
     if ( $validate == true) {
+      // use prepare, prevent XSS or SQL injection attact, had error text with quote
       // insert posetd value
-      $query = "INSERT INTO event_types (event_type_name, event_type_description)
-      VALUES ('$et_name', '$et_description')";
-      $insert_count = $db->exec($query);
-      if ($insert_count < 1) {
-      $errorMessage = 'Error Occured In Event Types Add.';
+      $query = 'INSERT INTO event_types (event_type_name, event_type_description)
+      VALUES (:et_name, :et_description)';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':et_name',$et_name);
+      $statement->bindValue(':et_description',$et_description);
+      $success = $statement->execute();
+      $statement->closeCursor();
+      // get the last event type DI that was automatically generated
+      $et_id = $db->lastInsertID();
+      if ($success == false) {
+        $errorMessage = 'Error Occured In Event Types Add.';
+        display_db_error($errorMessage);
       } else {
       // Redirect to parents page
-      header('Location: eventType.php');
+        header('Location: eventType.php');
       }
     }
     

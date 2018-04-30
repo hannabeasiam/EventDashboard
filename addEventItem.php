@@ -28,11 +28,21 @@
 
     if ($validate != false) {
       // insert posetd value
-      $query = "INSERT INTO events (event_date, event_location, event_type_id)
-      VALUES ('$event_date', '$event_location', '$event_type_id')";
-      $insert_count = $db->exec($query);
-      if ($insert_count < 1) {
+      // use prepare, prevent XSS or SQL injection attact, had error text with quote
+      $query = 'INSERT INTO events (event_date, event_location, event_type_id)
+      VALUES (:event_date, :event_location, :event_type_id)';
+      
+      $statement = $db->prepare($query);
+      $statement->bindValue(':event_date',$event_date);
+      $statement->bindValue(':event_location',$event_location);
+      $statement->bindValue(':event_type_id',$event_type_id);
+      $success = $statement->execute();
+      $statement->closeCursor();
+      // get the last event ID that was automatically generated
+      $event_id = $db->lastInsertID();
+      if ($success == false) {
         $errorMessage = 'Error Occured In Event Add.';
+        display_db_error($errorMessage);
       } else {
         $path = 'Location: event.php?event_type_id='.$event_type_id;
         header("$path");
@@ -47,7 +57,7 @@
 <div class="container">
   <h2>Event Form</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="addEventItem" method="post">
-    <!--<input type="hidden" name="event_id" id="event_id"  value=""  />-->
+
     <input type="hidden" name="event_type_id" id="event_type_id" value="<?php echo $_GET['event_type_id']; ?>" />
     <lable>Event Date</label>
     <input type="date" name="event_date" id="event_date" />
