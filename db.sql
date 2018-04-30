@@ -1,19 +1,19 @@
 
-CREATE DATABASE IF NOT EXISTS golf;
+CREATE DATABASE IF NOT EXISTS golf DEFAULT CHAR SET utf8 COLLATE utf8_general_ci;
 USE golf;
 
 
 CREATE TABLE event_types (
-  event_type_id     INT          PRIMARY KEY   AUTO_INCREMENT,
-  event_type_name   VARCHAR(10)  NOT NULL      UNIQUE,
-  event_type_description  TEXT   NOT NULL
+  event_type_id           INT            PRIMARY KEY   AUTO_INCREMENT,
+  event_type_name         VARCHAR(30)    NOT NULL      UNIQUE,
+  event_type_description  VARCHAR(200)   NOT NULL
 );
 CREATE TABLE events (
   event_id          INT              PRIMARY KEY AUTO_INCREMENT,
   event_date        DATE             NOT NULL,
   event_location    VARCHAR(30)      NOT NULL,
-  event_type_id     INT,
-  FOREIGN KEY (event_type_id) REFERENCE event_types(event_type_id)
+  event_type_id     INT              NOT NULL,
+  FOREIGN KEY (event_type_id) REFERENCES event_types(event_type_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE event_attendees (

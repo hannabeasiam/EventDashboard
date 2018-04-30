@@ -52,6 +52,25 @@ function change_table($query, $parent) {
     }
   }
 }
+// use quote
+function change_table_event_type($query, $parent) {
+  include("dbconnect.php");
+  if (empty($errorMessage)) { 
+    try {
+      $statement = $db->prepare($query);
+      $statement->execute();
+      
+      // redirect to parent page defalt to index
+      if (empty($parent)) {
+        header('Location: index.php');
+      }
+      header("$parent");
+    } catch (PDOException $e) {
+      $errorMessage = $e->getMessage();
+    }
+  }
+}
+
 function display_db_error($errorMessage) {
   include("dbconnect.php"); /********** should I add this here? **********/
   echo '<aside>';

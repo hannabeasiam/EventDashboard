@@ -1,4 +1,5 @@
 <?php
+  include("inc/dbconnect.php");
   include("inc/functions.php");
   $title = 'Event';
   $parent = "Location: eventType.php";
@@ -8,20 +9,21 @@
   $parent = "Location: eventType.php";
   if ($_SERVER["REQUEST_METHOD"] == "GET") { 
     $request = trim(filter_input(INPUT_GET, 'event_type_id'));
-    $query = "SELECT * FROM event_types WHERE event_type_id=$request;";
+    $query = "SELECT * FROM event_types WHERE event_type_id=$request";
     // echo($query);
     
     $event_types = get_row("$query");  // fetch data
-    // echo'<pre>';
-    // print_r($event_types);
-    // echo'</pre>';
+
     
   }
-  
+  echo'<pre>';
+  print_r($event_types);
+  echo'</pre>';
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $et_id = $_POST['et_id'];
     $et_name = $_POST['et_name'];
     $et_description = $_POST['et_description'];
+    
     if (empty($et_name)) {
       $validate = false;
       $nameError = 'Event Type Name is Required Field';
@@ -33,14 +35,20 @@
     /*********************************************
      * validate user input
      *********************************************/
-    
+    $et_id_q = $db->quote($et_id);
+    $et_name_q = $db->quote($et_name);
+    $et_description_q = $db->quote($et_description);
     // if user input is not empty, we can update
     // based on request action
     if (isset($_POST['edit'])) {
+      
+      // quote parameters
       $query = "UPDATE event_types
-                SET event_type_name = '$et_name', event_type_description = '$et_description' 
-                WHERE event_type_id = '$et_id'";
-      change_table($query, $parent);
+                SET event_type_name = $et_name_q, event_type_description = $et_description_q 
+                WHERE event_type_id = $et_id_q";
+      $update_count = $db->exec($query);
+      header("Location: eventType.php");
+      //change_table($query, $parent);
       exit;
     }
     /***********for Delete, user input change does not effect ? better way? 
@@ -48,8 +56,8 @@
      * *********************************************/
     if (isset($_POST['delete'])) {
       $parent = "Location: eventType.php";
-      $query = "DELETE events, event_types FROM events, event_types
-                WHERE event_type_id='$et_id'";
+      $query = "DELETE FROM event_types
+                WHERE event_type_id=$et_id_q";
   
       change_table($query, $parent);
       //exit;
@@ -110,7 +118,7 @@
         echo '<td>' . $event['event_id'] . '</td>';
         echo '<td>' . $event['event_date'] . '</td>';
         echo '<td class="center">' . $event['event_location'] . '</td>';
-        echo '<td class="center">' . '<a class="button" href="eventItem.php?event_id='. $event['event_id'] .'">Edit</a> | <a class="button" href="eventItem.php?event_id=' . $event['event_id'] . '">Delete</a></td>';
+        echo '<td class="center">' . '<a class="button" href="eventItem.php?event_type_id='.$event['event_type_id'].'&event_id='. $event['event_id'] .'">Customize</a></td>';
         echo '</tr>';
       }
     }

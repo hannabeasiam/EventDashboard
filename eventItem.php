@@ -1,19 +1,19 @@
 <?php
-  require("inc/functions.php");
- 
+  include("inc/dbconnect.php");
+  include("inc/functions.php");
+  
   include_once("inc/header.php");
-    
+  
    // $events = get_row("$query"); 
   if ($_SERVER["REQUEST_METHOD"] == "GET") { 
     $request = trim(filter_input(INPUT_GET, 'event_id'));
-    $query = 'SELECT * FROM event_types, events WHERE event_id='.$request;
-    // echo($query);
-    
+    $query = 'SELECT * FROM events WHERE event_id='.$request;
     $events = get_row("$query");  // fetch data
-    // echo'<pre>';
-    // print_r($event_types);
-    // echo'</pre>';
-    
+
+    $query = 'SELECT * FROM event_types WHERE event_type_id='.$events['event_type_id'];
+    $event_type = get_row("$query");  // fetch data
+
+
   }
   // once form submited
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,7 +21,11 @@
     $event_date = $_POST['event_date'];
     $event_location = $_POST['event_location'];
     $event_type_id = $_POST['event_type_id'];
-
+    // quote
+    $event_id_q = $db->quote($event_id);
+    $event_date_q = $db->quote($event_date);
+    $event_location_q = $db->quote($event_location);
+    $event_type_id_q = $db->quote($event_type_id);
     // validate user input
     if (empty($event_date)) {
       $validate = false;
@@ -41,14 +45,13 @@
     // based on request action
     if (isset($_POST['edit'])) {
       $query = "UPDATE events
-                SET event_date = '$event_date', event_location = '$event_location' 
-                WHERE event_id = '$event_id'";
+                SET event_date = $event_date_q, event_location = $event_location_q 
+                WHERE event_id = $event_id_q";
       change_table($query, $parent);
       exit;
     }
     /***********for Delete, user input change does not effect ? better way? *********************************************/
     if (isset($_POST['delete'])) {
-      $parent = "Location: eventType.php";
       $query = "DELETE FROM events
                 WHERE event_id = '$event_id'";
   
@@ -73,7 +76,7 @@
           <th>Event ID</th>
           <th>Date</th>
           <th>Description</th>
-          <th>Event Type</th>
+          <th>Event Type name</th>
         </tr>
       </thead>
       <tbody>
@@ -82,8 +85,8 @@
           echo '<tr>';
           echo '<td>' . $events['event_id'] . '</td>';
           echo '<td class="center" >' . $events['event_date'] . '</td>';
-          echo '<td class="center" >' . $events['event_type_description'] . '</td>';
-          echo '<td class="center" >' . $events['event_type_name'] . '</td>';
+          echo '<td class="center" >' . $event_type['event_type_description'] . '</td>';
+          echo '<td class="center" >' . $event_type['event_type_name'] . '</td>';
           echo '</tr>';
         
       ?>

@@ -20,6 +20,7 @@
 	<!--main contents-->
 	<div class="container">
     <h1>Event Type First Page</h1>
+    <p><a class="resetButton" href="reset.php">Reset DB</a></p>
     <!--add lookup page here button click triger page move to search.php-->
 
     <!--current invoice list here call display dashboard part-->

@@ -28,7 +28,7 @@ Study PHP CRUD, DB connection.
 
 - addEventItem.php         # form to create each event under event type
 
-- eventItem.php            # 
+- eventItem.php            # load all existing events matched with Event Type
 
 ```
 
